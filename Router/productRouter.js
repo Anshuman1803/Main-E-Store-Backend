@@ -3,9 +3,15 @@ const { productCollection } = require("../model/productModel");
 
 
 
-route.get("/product", async (request,response)=>{
+route.get("/product", async (request, response) => {
     let items = await productCollection.find();
     return response.send(items);
+});
+
+route.get("/product/:category", async (request, response) => {
+    const requestCategory = request.params.category;
+    const currentData = await productCollection.find({ category: { $eq: requestCategory } });
+    response.send(currentData)
 });
 
 
