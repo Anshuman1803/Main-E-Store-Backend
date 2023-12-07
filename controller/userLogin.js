@@ -9,7 +9,7 @@ const userLogin = async (request, response) => {
     const tempUser = request.body;
     let findUser = await registredUserCollection.find({ userEmail: { $eq: tempUser.userEmail } });
 
-    if (!findUser) {
+    if (findUser.length ===0) {
         return response.send({ resMsg: "User Not Registred" });
     }
     const userAuthenticaticated = bcrypt.compareSync(tempUser.userPassword, findUser[0].userPassword);

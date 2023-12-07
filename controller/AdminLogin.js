@@ -9,7 +9,7 @@ const adminLogin = async (request, response) => {
     const tempUser = request.body;
     let findUser = await adminCollection.find({ adminEmail: { $eq: tempUser.adminEmail } });
 
-    if (!findUser) {
+    if (findUser.length ===0) {
         return response.send({ resMsg: "Admin Not Registred" });
     }
     const userAuthenticaticated = bcrypt.compareSync(tempUser.adminPassword, findUser[0].adminPassword);
