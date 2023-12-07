@@ -1,6 +1,7 @@
 const {mongooseConnection} = require("./config/mongooseConnection")
 const productRouter = require("./Router/productRouter")
 const userRouter = require("./Router/userRouter")
+const adminRouter = require("./Router/adminRouter")
 const express = require("express");
 const cors = require("cors");
 const dotENV = require("dotenv");
@@ -18,6 +19,7 @@ appServer.use(cors({
 
 appServer.use('/api', productRouter);
 appServer.use("/api/user", userRouter)
+appServer.use("/api/admin", adminRouter);
 
 
 appServer.listen(PORT__NUBMER, async () => {

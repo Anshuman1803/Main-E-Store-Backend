@@ -1,7 +1,3 @@
-// userName
-// userPhone
-// userEmail
-// userPassword
 const mongoose = require("mongoose");
 const userModel = mongoose.Schema({
     "userName" :{
