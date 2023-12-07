@@ -15,7 +15,7 @@ const adminLogin = async (request, response) => {
     const userAuthenticaticated = bcrypt.compareSync(tempUser.adminPassword, findUser[0].adminPassword);
 
     if (userAuthenticaticated) {
-        return response.send({ resMsg: "Admin Logged In Successfully"});
+        return response.send({ resMsg: "Admin Logged In Successfully", "adminDetails" : findUser});
     } else {
         return response.send({ resMsg: "Password is not Correct" });
     }
