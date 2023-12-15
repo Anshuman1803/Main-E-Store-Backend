@@ -27,7 +27,7 @@ const itemModel = mongoose.Schema({
     "rating": {
         type: String,
         required: true,
-    },
+    }, 
     "brand": {
         type: String,
         required: true,
@@ -37,7 +37,7 @@ const itemModel = mongoose.Schema({
         required: true,
     },
     "images": {
-        type: Array,
+        type: Object,
         required: true,
     },
 
