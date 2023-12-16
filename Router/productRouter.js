@@ -14,5 +14,10 @@ route.get("/product/:category", async (request, response) => {
     response.send(currentData)
 });
 
+route.get("/products/:id", async  (request, response)=>{
+    const productID = request.params.id;
+    const singleProduct = await productCollection.find({id : {$eq : productID}});
+    response.send(singleProduct);
+})
 
 module.exports = route
