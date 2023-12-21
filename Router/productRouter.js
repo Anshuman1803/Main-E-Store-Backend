@@ -24,7 +24,13 @@ route.get("/products/:id", async  (request, response)=>{
 route.post("/addtocart", async(request, response)=>{
     const product = request.body;
     const mongooseResponse = await cartCollection.create(product);
-    response.send(mongooseResponse);
+    response.send(mongooseResponse)
+});
+
+route.post("/removetocart", async(request, response)=>{
+    const product = (request.body.id);
+    const mongooseResponse = await cartCollection.findOneAndDelete({id : {$eq : product}});
+    console.log(mongooseResponse)
 })
 
 module.exports = route
