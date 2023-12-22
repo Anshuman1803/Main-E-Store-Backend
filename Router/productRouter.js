@@ -15,22 +15,32 @@ route.get("/product/:category", async (request, response) => {
     response.send(currentData)
 });
 
-route.get("/products/:id", async  (request, response)=>{
+route.get("/products/:id", async (request, response) => {
     const productID = request.params.id;
-    const singleProduct = await productCollection.find({id : {$eq : productID}});
+    const singleProduct = await productCollection.find({ id: { $eq: productID } });
     response.send(singleProduct);
 });
 
-route.post("/addtocart", async(request, response)=>{
+route.post("/addtocart", async (request, response) => {
     const product = request.body;
     const mongooseResponse = await cartCollection.create(product);
     response.send(mongooseResponse)
 });
 
-route.post("/removetocart", async(request, response)=>{
+route.post("/removetocart", async (request, response) => {
     const product = (request.body.id);
-    const mongooseResponse = await cartCollection.findOneAndDelete({id : {$eq : product}});
-response.send(mongooseResponse)
-})
+    const mongooseResponse = await cartCollection.findOneAndDelete({ id: { $eq: product } });
+    response.send(mongooseResponse)
+});
+
+route.post("/updateCartProduct", async (request, response) => {
+    const currentID = request.body.id
+    const productQuantity = (request.body.ItemQuantity);
+    const mongooseResponse = await cartCollection.findOneAndUpdate({ id: { $eq: currentID } }, { $set: { ItemQuantity: productQuantity } });
+    response.send(mongooseResponse)
+});
+
+
+
 
 module.exports = route

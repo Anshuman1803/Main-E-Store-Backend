@@ -4,6 +4,10 @@ const cartModel = mongoose.Schema({
         type : String,
         required : true
     },
+    "ItemQuantity": {
+        type: Number,
+        required: true,
+    },
     "id": {
         type: Number,
         required: true,
