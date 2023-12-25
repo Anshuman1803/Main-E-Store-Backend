@@ -1,7 +1,6 @@
 const route = require("express").Router();
-const { cartCollection } = require("../model/cartModel");
 const { productCollection } = require("../model/productModel");
-
+const { wishListCollection } = require("../model/wishListModel")
 
 
 route.get("/product", async (request, response) => {
@@ -21,25 +20,17 @@ route.get("/products/:id", async (request, response) => {
     response.send(singleProduct);
 });
 
-route.post("/addtocart", async (request, response) => {
-    const product = request.body;
-    const mongooseResponse = await cartCollection.create(product);
-    response.send(mongooseResponse)
+route.post('/addtowishlist', async (request, response) => {
+    let tempItem = request.body
+    const mongooseRes = await wishListCollection.create(tempItem);
+    return response.send(mongooseRes)
 });
 
-route.post("/removetocart", async (request, response) => {
-    const product = (request.body.id);
-    const mongooseResponse = await cartCollection.findOneAndDelete({ id: { $eq: product } });
-    response.send(mongooseResponse)
-});
-
-route.post("/updateCartProduct", async (request, response) => {
-    const currentID = request.body.id
-    const productQuantity = (request.body.ItemQuantity);
-    const mongooseResponse = await cartCollection.findOneAndUpdate({ id: { $eq: currentID } }, { $set: { ItemQuantity: productQuantity } });
-    response.send(mongooseResponse)
-});
-
+route.post("/removetowishlist", async (request, response)=>{
+    let tempItem = request.body
+    const mongooseRes = await wishListCollection.findOneAndDelete({ $and: [{ id: {$eq : tempItem.id} }, { userEmail: { $eq: tempItem.userEmail} }] });
+    return response.send(mongooseRes)
+})
 
 
 
