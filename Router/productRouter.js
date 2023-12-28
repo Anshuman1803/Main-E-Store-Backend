@@ -1,6 +1,5 @@
 const route = require("express").Router();
 const { productCollection } = require("../model/productModel");
-const { wishListCollection } = require("../model/wishListModel")
 
 
 route.get("/product", async (request, response) => {
